@@ -4,9 +4,6 @@ metadata:
   name: halkyon-nginx-config
 data:
   default.conf: |
-    upstream node {
-      server http://halkyon.io;
-    }
     server {
       listen                  8080;
       server_name             _;
