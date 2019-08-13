@@ -17,7 +17,8 @@ spec:
             - containerPort: 8080
           volumeMounts:
             - name: halkyon-nginx-configs
-              mountPath: /etc/nginx/conf.d
+              # mountPath: /etc/nginx/conf.d
+              mountPath: /opt/bitnami/nginx/conf/server_blocks
       # Load the configuration files for nginx
       volumes:
         - name: halkyon-nginx-configs
