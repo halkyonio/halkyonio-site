@@ -15,16 +15,12 @@ oc apply -f service.yml
 oc apply -f deployment.yml
 ```
 
-Check if we get a meta tag
+Check if we get a meta tag 
 ```bash
-curl -svL halkyon.io | grep -i go-import
-
-curl -kL https://halkyon.io/group/project?go-get=1   
-<html>
-<head><title>404 Not Found</title></head>
-<body>
-<center><h1>404 Not Found</h1></center>
-<hr><center>nginx/1.16.0</center>
-</body>
-</html>
+curl -sL https://halkyon.io/operator?go-get=1 | grep -i go-import
+<html><head><meta name="go-import" content="halkyon.io/operator git git+ssh://git@github.com/halkyonio/operator"/></head></html>
+```
+an next if you can get the go project
+```bash
+go get -v halkyon.io/operator  
 ```

@@ -7,9 +7,11 @@ data:
     server {
       listen            0.0.0.0:8080;
       root              /app;
-      location ~ "(/[^/]+/[^/]+)(/.*)?" {
+      server_name       _;
+      # location ~ "(/[^/]+/[^/]+)(/.*)?" {
+      location ~ "(/[^/]+)(/[^/]+)?" {
           if ($arg_go-get = "1") {
-             echo '<html><head><meta name="go-import" content="halkyon.io$1 git git+ssh://git@my.domain.com$1"/></head></html>';
+             return 200 '<html><head><meta name="go-import" content="halkyon.io$1 git git+ssh://git@github.com/halkyonio$1"/></head></html>';
           }
           try_files $uri $uri/index.html $uri.html @git;
       }
