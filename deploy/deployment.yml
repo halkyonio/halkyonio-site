@@ -10,11 +10,11 @@ spec:
         app: halkyon-nginx
     spec:
       containers:
-        - image: nginx:1.16-alpine
+        - image: bitnami/nginx
           imagePullPolicy: Always
           name: halkyon-nginx
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - name: halkyon-nginx-configs
               mountPath: /etc/nginx/conf.d

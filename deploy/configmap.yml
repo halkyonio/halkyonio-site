@@ -8,13 +8,13 @@ data:
       server http://halkyon.io;
     }
     server {
-      listen                  80;
+      listen                  8080;
       server_name             _;
       root                    /usr/share/nginx/html;
       location ~ "(/[^/]+/[^/]+)(/.*)?" {
           if ($arg_go-get = "1") {
                   echo '<html><head><meta name="go-import" content="halkyon.io$1 git git+ssh://git@my.domain.com$1"/></head></html>';
           }
-          try_files $uri $uri/index.html $uri.html @github;
+          try_files $uri $uri/index.html $uri.html @git;
       }
     }
