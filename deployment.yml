@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: halkyon-nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: halkyon-nginx
+    spec:
+      containers:
+        - image: nginx:1.13.6-alpine
+          imagePullPolicy: Always
+          name: halkyon-nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: halkyon-nginx-configs
+              mountPath: /etc/nginx/conf.d
+      # Load the configuration files for nginx
+      volumes:
+        - name: halkyon-nginx-configs
+          configMap:
+            name: halkyon-nginx-config
