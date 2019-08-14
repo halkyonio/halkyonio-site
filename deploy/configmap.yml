@@ -10,8 +10,8 @@ data:
       server_name       _;
       location ~ "(/[^/]+)(/[^/]+)?" {
           if ($arg_go-get = "1") {
-             return 200 '<html><head><meta name="go-import" content="halkyon.io$1 git git+ssh://git@github.com/halkyonio$1"/></head></html>';
+             return 200 '<html><head><meta name="go-import" content="halkyon.io$1 git https://github.com/halkyonio$1"/></head></html>';
           }
-          try_files $uri $uri/index.html $uri.html @git;
+          try_files $uri $uri/index.html $uri.html;
       }
     }
