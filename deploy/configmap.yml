@@ -8,6 +8,11 @@ data:
       listen            0.0.0.0:8080;
       root              /app;
       server_name       _;
+
+      location / {
+          rewrite "^/(.*)$" https://github.com/halkyonio break;
+      }
+
       location ~ "(/[^/]+)(/[^/]+)?" {
           if ($arg_go-get = "1") {
              return 200 '<html><head><meta name="go-import" content="halkyon.io$1 git https://github.com/halkyonio$1"/></head></html>';
