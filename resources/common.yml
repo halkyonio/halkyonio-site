@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: halkyon-nginx-config
+data:
+  server-block.conf: |-
+    server {
+      listen            0.0.0.0:8080;
+      root              /app;
+      server_name       _;
+
+      location / {
+          rewrite "^/(.*)$" https://github.com/halkyonio break;
+      }
+
+      location ~ "(/[^/]+)(/[^/]+)?" {
+          if ($arg_go-get = "1") {
+             return 200 '<html><head><meta name="go-import" content="halkyon.io$1 git https://github.com/halkyonio$1"/></head></html>';
+          }
+          try_files $uri $uri/index.html $uri.html;
+      }
+    }
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: halkyon-nginx
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: halkyon-nginx
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: halkyon-nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: halkyon-nginx
+    spec:
+      containers:
+        - image: bitnami/nginx
+          imagePullPolicy: Always
+          name: halkyon-nginx
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: halkyon-nginx-configs
+              # mountPath: /etc/nginx/conf.d
+              mountPath: /opt/bitnami/nginx/conf/server_blocks
+      # Load the configuration files for nginx
+      volumes:
+        - name: halkyon-nginx-configs
+          configMap:
+            name: halkyon-nginx-config

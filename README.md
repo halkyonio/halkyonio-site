@@ -6,11 +6,20 @@ Information is available here:
 - https://golang.org/cmd/go/#hdr-Remote_import_paths
 - https://stackoverflow.com/questions/26347516/using-go-get-on-a-personal-git-repo
 
-Command to be used to deploy and configure the nginx server is 
+Command to be used to deploy and configure the `halkyon nginx server` is 
 
 ```
 oc project halkyonio-site
-oc apply -f deploy/
+oc apply -f deploy/common.yml
+```
+
+If the project is deployed on openshift, install the route 
+```bash
+oc apply -f deploy/route.yml
+```
+and the ingress resource for a k8s cluster
+```bash
+oc apply -f deploy/ingress.yml
 ```
 
 Check if we get a meta tag 
