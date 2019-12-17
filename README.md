@@ -10,16 +10,16 @@ Command to be used to deploy and configure the `halkyon nginx server` is
 
 ```
 oc project halkyonio-site
-oc apply -f resources/common.yml
+oc apply -f config/common.yml
 ```
 
 If the project is deployed on openshift, install the route 
 ```bash
-oc apply -f resources/route.yml
+oc apply -f config/route.yml
 ```
 and the ingress resource for a k8s cluster
 ```bash
-oc apply -f resources/ingress.yml
+oc apply -f config/ingress.yml
 ```
 
 Check if we get a meta tag 
